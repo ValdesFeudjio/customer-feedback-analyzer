@@ -38,3 +38,45 @@ L’étape finale consiste à regrouper les documents en **k clusters** à l’a
 - Il est ensuite possible d’analyser les clusters, visualiser les répartitions ou explorer les textes par thème
 
 🔍 *Cette approche permet de segmenter le corpus selon les grandes idées ou sentiments qu’il contient.*
+
+
+
+        ┌────────────────────┐
+        │ Données brutes     │
+        │ (avis clients.csv) │
+        └────────┬───────────┘
+                 │
+                 ▼
+        ┌────────────────────┐
+        │ Étape 1 :          │
+        │ Prétraitement NLP  │
+        │ (spaCy)            │
+        │ - Tokenisation     │
+        │ - Lemmatisation    │
+        │ - Nettoyage        │
+        └────────┬───────────┘
+                 │
+                 ▼
+        ┌────────────────────┐
+        │ Étape 2 :          │
+        │ Vectorisation      │
+        │ (Word2Vec)         │
+        │ - Embedding moyen  │
+        └────────┬───────────┘
+                 │
+                 ▼
+        ┌────────────────────┐
+        │ Étape 3 :          │
+        │ Clustering         │
+        │ (KMeans)           │
+        │ - Regroupement     │
+        │   par thème        │
+        └────────┬───────────┘
+                 │
+                 ▼
+        ┌────────────────────┐
+        │ Résultats          │
+        │ - Répartition      │
+        │   thématique       │
+        │ - Analyse marketing│
+        └────────────────────┘
