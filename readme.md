@@ -43,7 +43,7 @@ L’étape finale consiste à regrouper les documents en **k clusters** à l’a
 
         ┌────────────────────┐
         │ Données brutes     │
-        │ (avis clients.csv) │
+        │ (avis cient .json) │
         └────────┬───────────┘
                  │
                  ▼
