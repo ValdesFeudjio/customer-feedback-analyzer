@@ -8,9 +8,14 @@ from sklearn.manifold import TSNE
 import plotly.express as px
 import pandas as pd
 
+from numpy import stack
 
 from gensim.models import Word2Vec
 import numpy as np
+
+from sklearn.cluster import KMeans
+import joblib  # Pour sauvegarder le modèle
+from numpy import stack
 
 
 # La fonction de preprocessing complète est définie ici
@@ -177,3 +182,42 @@ def visualize_embeddings_tsne(model, top_n=300, perplexity=40, n_iter=1000, rand
 
 # Exemple d'utilisation
 # visualize_embeddings_tsne(model, top_n=300) les paramètres peuvent être ajustés selon les besoins
+
+
+
+'''
+
+ Clustering avec KMeans
+ Le but ici est de regrouper les documents en clusters basés sur leurs embeddings moyens.
+ 
+'''
+
+def apply_kmeans_clustering(X, k=5, save_path=None, random_state=42):
+    """
+    Applique un clustering KMeans sur des vecteurs de documents.
+    
+    :param X: Matrice (array ou DataFrame) de vecteurs par document (shape: n_docs × n_features)
+    :param k: Nombre de clusters (thèmes) à trouver
+    :param save_path: Chemin pour sauvegarder le modèle KMeans (facultatif)
+    :param random_state: Pour la reproductibilité
+    :return: modèle KMeans entraîné, labels (cluster de chaque document)
+    """
+    kmeans = KMeans(n_clusters=k, random_state=random_state)
+    labels = kmeans.fit_predict(X)
+    
+    # Sauvegarde optionnelle du modèle
+    if save_path:
+        joblib.dump(kmeans, save_path)
+    
+    return kmeans, labels
+
+
+
+# Exemple d'utilisation
+# Supposons que tu as une colonne `doc_vector` (vecteurs moyens de chaque document)
+# X = stack(df['doc_vector'].values)
+# kmeans_model, df['cluster'] = apply_kmeans_clustering(X, k=5, save_path="kmeans_model.joblib")
+
+## Pour charger le modèle KMeans plus tard, tu peux utiliser joblib
+# import joblib
+# kmeans_model = joblib.load("kmeans_model.joblib")
