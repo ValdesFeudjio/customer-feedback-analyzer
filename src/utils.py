@@ -17,6 +17,11 @@ from sklearn.cluster import KMeans
 import joblib  # Pour sauvegarder le modèle
 from numpy import stack
 
+import pandas as pd
+import numpy as np
+import plotly.express as px
+from sklearn.manifold import TSNE
+
 
 # La fonction de preprocessing complète est définie ici
 
@@ -221,3 +226,57 @@ def apply_kmeans_clustering(X, k=5, save_path=None, random_state=42):
 ## Pour charger le modèle KMeans plus tard, tu peux utiliser joblib
 # import joblib
 # kmeans_model = joblib.load("kmeans_model.joblib")
+
+
+
+
+
+'''
+visualisation des clusters avec t-SNE
+'''
+
+
+
+
+def visualize_clusters_2d(vectors, labels, method='tsne', title='Visualisation des clusters'):
+    """
+    Réduction en 2D + affichage des clusters avec couleurs différentes.
+    
+    :param vectors: matrice numpy ou liste de vecteurs (n_documents × n_features)
+    :param labels: liste ou array des labels de cluster (longueur = n_documents)
+    :param method: 'tsne' ou 'pca'
+    :param title: titre du graphique
+    """
+    if method == 'tsne':
+        reducer = TSNE(n_components=2, random_state=42, perplexity=30)
+    elif method == 'pca':
+        reducer = PCA(n_components=2)
+    else:
+        raise ValueError("Méthode non reconnue. Choisir 'tsne' ou 'pca'.")
+    
+    reduced = reducer.fit_transform(vectors)
+    
+    df_visu = pd.DataFrame({
+        "x": reduced[:, 0],
+        "y": reduced[:, 1],
+        "cluster": labels.astype(str)
+    })
+    
+    fig = px.scatter(
+        df_visu,
+        x="x",
+        y="y",
+        color="cluster",
+        title=title,
+        labels={"cluster": "Cluster"},
+        width=900,
+        height=600
+    )
+    fig.update_traces(marker=dict(size=6))
+    fig.show()
+
+
+# Exemple d'utilisation
+
+# X = stack(df['doc_vector'].values)  # Matrice des vecteurs
+# visualize_clusters_2d(X, df['cluster'], method='tsne')
