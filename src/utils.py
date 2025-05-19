@@ -22,6 +22,8 @@ import numpy as np
 import plotly.express as px
 from sklearn.manifold import TSNE
 
+from sklearn.metrics import silhouette_score
+
 
 # La fonction de preprocessing complète est définie ici
 
@@ -280,3 +282,51 @@ def visualize_clusters_2d(vectors, labels, method='tsne', title='Visualisation d
 
 # X = stack(df['doc_vector'].values)  # Matrice des vecteurs
 # visualize_clusters_2d(X, df['cluster'], method='tsne')
+
+
+def find_optimal_k(data_scaled, max_clusters=10):
+    """
+    Trouve le nombre optimal de clusters en utilisant la méthode du coude et le score de silhouette.
+    """
+    inertia = []
+    silhouette_scores = []
+    range_n_clusters = range(2, max_clusters + 1)
+
+    for n_clusters in range_n_clusters:
+        kmeans = KMeans(n_clusters=n_clusters, init='k-means++', random_state=42)
+        kmeans.fit(data_scaled)
+        inertia.append(kmeans.inertia_)
+
+        # Calcul du score de silhouette
+        cluster_labels = kmeans.labels_
+        silhouette_avg = silhouette_score(data_scaled, cluster_labels)
+        silhouette_scores.append(silhouette_avg)
+
+    return range_n_clusters, inertia, silhouette_scores
+
+
+
+
+
+
+
+
+def get_comment_vector(tokens):
+    vectors = [model_w2v.wv[word] for word in tokens if word in model_w2v.wv]
+    return np.mean(vectors, axis=0).reshape(1, -1) if vectors else np.zeros((1, model_w2v.vector_size))
+
+# Fonction pour prédire le thème (cluster) d'un nouveau commentaire
+def predict_theme(text, top_n=20):
+    # Prétraitement complet avec suppression des mots fréquents
+    cleaned_tokens = full_preprocessing(pd.Series([text]), top_n=top_n)[0]
+    
+    # Génération du vecteur
+    vector = get_comment_vector(cleaned_tokens)
+    
+    # Prédiction avec KMeans
+    cluster = model_kmeans.predict(vector)[0]
+    
+    return f"Le commentaire est classé dans le thème : {cluster}"
+
+
+
