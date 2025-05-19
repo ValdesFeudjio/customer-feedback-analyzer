@@ -80,3 +80,50 @@ L’étape finale consiste à regrouper les documents en **k clusters** à l’a
         │   thématique       │
         │ - Analyse marketing│
         └────────────────────┘
+
+
+
+
+
+## 📊 Thématiques identifiées par Clustering
+
+Grâce à l'algorithme de **KMeans**, nous avons regroupé les réponses en plusieurs clusters pour identifier les thèmes principaux exprimés par les citoyens concernant la pratique sportive en France.
+
+### 🏷️ Cluster 0 - **Création de nouvelles infrastructures sportives**
+
+* **Mots-clés** : `creer`, `salle`, `scolaire`, `personne`, `bienfait`
+* **Description** :
+  Ce cluster regroupe les réponses exprimant le **besoin de créer de nouvelles infrastructures sportives** pour faciliter l'accès à la pratique du sport. Les citoyens mettent en avant l'importance de construire des **salles de sport**, notamment dans un cadre **scolaire**, pour promouvoir les bienfaits de l'activité physique.
+
+---
+
+### 🏷️ Cluster 1 - **Soutien public et accompagnement des personnes**
+
+* **Mots-clés** : `pouvoir`, `public`, `personne`, `aider`, `creer`
+* **Description** :
+  Ce cluster représente les réponses où les citoyens expriment un **besoin d’accompagnement de la part des autorités publiques**. Les réponses mettent en avant l'importance de **l'aide publique** pour faciliter l'accès aux activités sportives, notamment pour les personnes en difficulté.
+
+---
+
+### 🏷️ Cluster 2 - **Sport et éducation**
+
+* **Mots-clés** : `matiere`, `competition`, `organisation`, `etude`, `maternelle`
+* **Description** :
+  Les réponses de ce cluster portent sur la **pratique sportive dans le cadre éducatif**. Les citoyens insistent sur l'importance d'intégrer le sport dès l'école maternelle, d'organiser des **compétitions sportives** et de faire de l'éducation physique une **matière essentielle**.
+
+---
+
+### 🏷️ Cluster 3 - **Manque de temps pour pratiquer le sport**
+
+* **Mots-clés** : `pouvoir`, `pratiquer`, `creer`, `heure`, `permettre`
+* **Description** :
+  Les réponses de ce cluster reflètent les **contraintes de temps** rencontrées par les citoyens pour pratiquer le sport. Ils expriment un besoin de **flexibilité horaire** et la nécessité de **créer des espaces adaptés** pour intégrer l'activité physique dans un emploi du temps chargé.
+
+---
+
+### 🏷️ Cluster 4 - **Accessibilité aux installations sportives**
+
+* **Mots-clés** : `permettre`, `acce`, `age`, `accessible`, `place`
+* **Description** :
+  Ce cluster regroupe les réponses mettant en avant les **problèmes d’accessibilité aux infrastructures sportives**. Les citoyens évoquent le manque de **places disponibles** et la difficulté d'accès pour certains **groupes d’âge**. Ils souhaitent des équipements plus **proches et accessibles**.
+
