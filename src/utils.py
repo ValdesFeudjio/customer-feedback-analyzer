@@ -209,7 +209,7 @@ def apply_kmeans_clustering(X, k=5, save_path=None, random_state=42):
     :param random_state: Pour la reproductibilité
     :return: modèle KMeans entraîné, labels (cluster de chaque document)
     """
-    kmeans = KMeans(n_clusters=k, random_state=random_state)
+    kmeans = KMeans(n_clusters=k, random_state=42)
     labels = kmeans.fit_predict(X)
     
     # Sauvegarde optionnelle du modèle
