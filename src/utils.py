@@ -243,27 +243,28 @@ visualisation des clusters avec t-SNE
 def visualize_clusters_2d(vectors, labels, method='tsne', title='Visualisation des clusters'):
     """
     Réduction en 2D + affichage des clusters avec couleurs différentes.
-    
+
     :param vectors: matrice numpy ou liste de vecteurs (n_documents × n_features)
     :param labels: liste ou array des labels de cluster (longueur = n_documents)
     :param method: 'tsne' ou 'pca'
     :param title: titre du graphique
     """
+
     if method == 'tsne':
-        reducer = TSNE(n_components=2, random_state=42, perplexity=30)
+        reducer = TSNE(n_components=2, random_state=42, perplexity=30, n_iter=1000)
     elif method == 'pca':
         reducer = PCA(n_components=2)
     else:
         raise ValueError("Méthode non reconnue. Choisir 'tsne' ou 'pca'.")
-    
+
     reduced = reducer.fit_transform(vectors)
-    
+
     df_visu = pd.DataFrame({
         "x": reduced[:, 0],
         "y": reduced[:, 1],
         "cluster": labels.astype(str)
     })
-    
+
     fig = px.scatter(
         df_visu,
         x="x",
@@ -271,11 +272,12 @@ def visualize_clusters_2d(vectors, labels, method='tsne', title='Visualisation d
         color="cluster",
         title=title,
         labels={"cluster": "Cluster"},
-        width=900,
-        height=600
+        width=2000,   # ~20 pouces à 100dpi
+        height=800    # ~8 pouces à 100dpi
     )
     fig.update_traces(marker=dict(size=6))
     fig.show()
+    
 
 
 # Exemple d'utilisation
