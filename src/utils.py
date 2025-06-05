@@ -75,7 +75,7 @@ def full_preprocessing(text_series, top_n=20):
 
 
 
-def vectorize_with_word2vec(token_lists, vector_size=50, min_count=1, sg=0, save_path=None):
+def vectorize_with_word2vec(token_lists, vector_size=100, min_count=1, sg=1, save_path=None):
     """
     Entraîne un modèle Word2Vec sur les listes de tokens et transforme chaque document
     en une liste de vecteurs (un par token).
@@ -96,8 +96,13 @@ def vectorize_with_word2vec(token_lists, vector_size=50, min_count=1, sg=0, save
         vector_size=vector_size,
         window=window_size,
         min_count=min_count,
-        sg=sg
+        sg=sg,
+        workers=4,                 # Nombre de threads pour l'entraînement,
+        epochs=10,
     )
+    
+    
+    
     
     # Sauvegarde du modèle si demandé
     if save_path:
@@ -277,7 +282,7 @@ def visualize_clusters_2d(vectors, labels, method='tsne', title='Visualisation d
     )
     fig.update_traces(marker=dict(size=6))
     fig.show()
-    
+
 
 
 # Exemple d'utilisation
@@ -308,14 +313,10 @@ def find_optimal_k(data_scaled, max_clusters=10):
 
 
 
-
-
-
-
-
 def get_comment_vector(tokens):
     vectors = [model_w2v.wv[word] for word in tokens if word in model_w2v.wv]
     return np.mean(vectors, axis=0).reshape(1, -1) if vectors else np.zeros((1, model_w2v.vector_size))
+
 
 # Fonction pour prédire le thème (cluster) d'un nouveau commentaire
 def predict_theme(text, top_n=20):
