@@ -1,9 +1,9 @@
 streamlit>=1.18.0
 spacy>=3.7.0
+fr_core_news_md @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-3.7.0/fr_core_news_md-3.7.0-py3-none-any.whl
 pandas
-numpy
+numpy<2.0  # attention à numpy 2.2.x
 gensim
 scikit-learn
 unidecode
 joblib
-fr_core_news_md @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-3.7.0/fr_core_news_md-3.7.0-py3-none-any.whl
